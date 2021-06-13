@@ -32,7 +32,12 @@ public extension XCTestCase {
 
 	// The class of the currently running test
 	var currentTestClass: String {
-		let base = self.className  // "DoseDatastoreLibTests.AppDatabaseTests"
+		#if os(OSX)
+				let base = self.className  // "DoseDatastoreLibTests.AppDatabaseTests"
+		#else
+				let base = self.name  // "DoseDatastoreLibTests.AppDatabaseTests" Not sure if this is right for iOS platforms, I just did it to fix a build error
+		#endif
+
 		let splitString = base.split(separator: ".")
 		if (splitString.count < 2) {
 			fatalError()
